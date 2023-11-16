@@ -1,0 +1,43 @@
+db.createCollection('artefactos_electronicos', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_artefacto_electronico','nombre','marca','modelo','precio','ancho','largo','altura'],
+           properties: {
+                codigo_artefacto_electronico: {
+                    bsonType: 'int',
+                    description: 'Codigo del artefacto electronico'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre del artefacto electronico'
+                },
+                marca: {
+                    bsonType: 'string',
+                    description: 'Marca del artefacto electronico'
+                },
+                modelo: {
+                    bsonType: 'string',
+                    description: 'Modelo del artefacto electronico'
+                },
+                precio: {
+                    bsonType: 'decimal',
+                    description: 'Precio del artefacto electronico'
+                },
+                ancho: {
+                    bsonType: 'decimal',
+                    description: 'Ancho del artefacto electronico'
+                },
+                largo: {
+                    bsonType: 'decimal',
+                    description: 'Largo del artefacto electronico'
+                },
+                altura: {
+                    bsonType: 'decimal',
+                    description: 'Altura del artefacto electronico'
+                },
+           },
+           additionalProperties: false
+       }
+   }
+})
