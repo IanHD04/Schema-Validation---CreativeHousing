@@ -1,0 +1,31 @@
+db.createCollection('decoraciones', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_decoracion','nombre','color','textura','precio'],
+           properties: {
+                codigo_decoracion: {
+                    bsonType: 'int',
+                    description: 'Codigo de la decoracion'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre de la decoracion'
+                },
+                color: {
+                    bsonType: 'string',
+                    description: 'Color de la decoracion'
+                },
+                textura: {
+                    bsonType: 'string',
+                    description: 'Textura de la decoracion'
+                },
+                precio: {
+                    bsonType: 'decimal',
+                    description: 'Precio de la decoracion'
+                },
+           },
+           additionalProperties: false
+       }
+   }
+})
