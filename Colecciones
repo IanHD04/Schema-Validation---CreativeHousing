@@ -1,0 +1,316 @@
+use CreativeHousing
+
+db.createCollection('usuarios', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_usuario','dni','nombre','apellido_paterno','apellido_materno','correo_electronico','contrasenia','numero_telefonico','membresias'],
+           properties: {
+                codigo_usuario: {
+                    bsonType: 'int',
+                    description: 'Codigo del usuario'
+                },
+                dni: {
+                    bsonType: 'string',
+                    description: 'DNI del usuario, debe tener 8 digitos'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre del usuario tipo string'
+                },
+                apellido_paterno: {
+                    bsonType: 'string',
+                    description: 'Apellido paterno del usuario tipo string'
+                },
+                apellido_materno: {
+                    bsonType: 'string',
+                    description: 'Apellido materno del usuario tipo string'
+                },
+                correo_electronico: {
+                    bsonType: 'string',
+                    description: 'Correo electronico del usuario debe ser una direccion de correo valida example@gmail.com'
+                },
+                contrasenia: {
+                    bsonType: 'string',
+                    description: 'Contrasenia del usuario tipo string'
+                },
+                numero_telefonico: {
+                    bsonType: 'string',
+                    description: 'Numero telefonico del usuario, debe ser una cadena de 9 digitos'
+                },
+               membresias: {
+                   bsonType: 'array',
+                   description: 'Listado de las membresias que puede tener cada usuario, junto con las fechas de inicio y vencimineto,estado, monto y beneficios que tiene',
+                   items: {
+                       bsonType: 'object',
+                       required: ['fecha_inicio','fecha_vencimiento','estado','monto','beneficios '],
+                       properties: {
+                           fecha_inicio: {
+                               bsonType: 'date',
+                               description: 'Fecha de inicio de la membresia'
+                           },
+                           fecha_vencimiento: {
+                               bsonType: 'date',
+                               description: 'Fecha de vencimiento de la membresia'
+                           },
+                           estado: {
+                               bsonType: 'string',
+                               description: 'Estado de la membresia'
+                           },
+                           monto: {
+                               bsonType: 'decimal',
+                               description: 'Monto de la membresia'
+                           },
+                           beneficios: {
+                               bsonType: 'array',
+                               description: 'Arreglo de beneficios',
+                               items:{
+                                   bsonType: 'object',
+                                   required: ['beneficio'],
+                                   properties: {
+                                       beneficio: {
+                                           bsonType: 'string',
+                                           description: 'Beneficio de la membresia'
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           additionalProperties: false
+       }
+   }
+})
+
+db.createCollection('proyectos', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_proyecto','nombre','fecha_de_creacion','descripcion','estado','ultima_modificacion','categorias','espacios'],
+           properties: {
+                codigo_proyecto: {
+                    bsonType: 'int',
+                    description: 'Codigo del proyecto'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre del proyecto tipo string'
+                },
+                fecha_de_creacion: {
+                    bsonType: 'date',
+                    description: 'Fecha de creacion del proyecto'
+                },
+                descripcion: {
+                    bsonType: 'string',
+                    description: 'Descripcion del proyecto tipo string'
+                },
+                estado: {
+                    bsonType: 'string',
+                    description: 'Estado del proyecto tipo string'
+                },
+                ultima_modificacion: {
+                    bsonType: 'date',
+                    description: 'Fecha de ultima modificacion del proyecto'
+                },
+                categorias: {
+                    bsonType: 'array',
+                    description: 'Listado de las categorias',
+                    items: {
+                        bsonType: 'object',
+                        required: ['nombre_categoria'],
+                        properties: {
+                            nombre_categoria: {
+                                bsonType: 'string',
+                                description: 'Nombre de la categoria'
+                           },
+                       }
+                   }
+                },
+                espacios: {
+                   bsonType: 'array',
+                   description: 'Listado de los espacios',
+                   items: {
+                       bsonType: 'object',
+                       required: ['tipo_de_espacio','artefactos_electronicos','decoraciones','muebles'],
+                       properties: {
+                           tipo_de_espacio: {
+                               bsonType: 'string',
+                               description: 'Tipo del espacio'
+                           },
+                            artefactos_electronicos: {
+                                bsonType: 'array',
+                                description: 'Listado de los artefactos',
+                                items: {
+                                    bsonType: 'object',
+                                    required: ['codigo_artefacto_electronico'],
+                                    properties: {
+                                        codigo_artefacto_electronico: {
+                                            bsonType: 'int',
+                                            description: 'Codigo del artefacto electronico'
+                                        },
+                                    }
+                                }
+                            },
+                            decoraciones: {
+                                bsonType: 'array',
+                                description: 'Listado de las decoraciones',
+                                items: {
+                                    bsonType: 'object',
+                                    required: ['codigo_decoracion'],
+                                    properties: {
+                                        codigo_decoracion: {
+                                            bsonType: 'int',
+                                            description: 'Codigo de la decoracion'
+                                        },
+                                    }
+                                }
+                            },
+                            muebles: {
+                                bsonType: 'array',
+                                description: 'Listado de los muebles',
+                                items: {
+                                    bsonType: 'object',
+                                    required: ['codigo_mueble'],
+                                    properties: {
+                                        codigo_mueble: {
+                                            bsonType: 'int',
+                                            description: 'Codigo del mueble'
+                                        },
+                                    }
+                                }
+                            }
+                       }
+                   }
+               }
+
+           },
+           additionalProperties: false
+       }
+   }
+})
+
+db.createCollection('artefactos_electronicos', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_artefacto_electronico','nombre','marca','modelo','precio','ancho','largo','altura'],
+           properties: {
+                codigo_artefacto_electronico: {
+                    bsonType: 'int',
+                    description: 'Codigo del artefacto electronico'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre del artefacto electronico'
+                },
+                marca: {
+                    bsonType: 'string',
+                    description: 'Marca del artefacto electronico'
+                },
+                modelo: {
+                    bsonType: 'string',
+                    description: 'Modelo del artefacto electronico'
+                },
+                precio: {
+                    bsonType: 'decimal',
+                    description: 'Precio del artefacto electronico'
+                },
+                ancho: {
+                    bsonType: 'decimal',
+                    description: 'Ancho del artefacto electronico'
+                },
+                largo: {
+                    bsonType: 'decimal',
+                    description: 'Largo del artefacto electronico'
+                },
+                altura: {
+                    bsonType: 'decimal',
+                    description: 'Altura del artefacto electronico'
+                },
+           },
+           additionalProperties: false
+       }
+   }
+})
+
+db.createCollection('muebles', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_mueble','nombre','modelo','marca','color','precio','ancho','largo','altura'],
+           properties: {
+                codigo_mueble: {
+                    bsonType: 'int',
+                    description: 'Codigo del mueble'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre del mueble'
+                },
+                modelo: {
+                    bsonType: 'string',
+                    description: 'Modelo del mueble'
+                },
+                marca: {
+                    bsonType: 'string',
+                    description: 'Marca del mueble'
+                },
+                color: {
+                    bsonType: 'string',
+                    description: 'Color del mueble'
+                },
+                precio: {
+                    bsonType: 'decimal',
+                    description: 'Precio del mueble'
+                },
+                ancho: {
+                    bsonType: 'decimal',
+                    description: 'Ancho del mueble'
+                },
+                largo: {
+                    bsonType: 'decimal',
+                    description: 'Largo del mueble'
+                },
+                altura: {
+                    bsonType: 'decimal',
+                    description: 'Altura del mueble'
+                },
+           },
+           additionalProperties: false
+       }
+   }
+})
+
+db.createCollection('decoraciones', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_decoracion','nombre','color','textura','precio'],
+           properties: {
+                codigo_decoracion: {
+                    bsonType: 'int',
+                    description: 'Codigo de la decoracion'
+                },
+                nombre: {
+                    bsonType: 'string',
+                    description: 'Nombre de la decoracion'
+                },
+                color: {
+                    bsonType: 'string',
+                    description: 'Color de la decoracion'
+                },
+                textura: {
+                    bsonType: 'string',
+                    description: 'Textura de la decoracion'
+                },
+                precio: {
+                    bsonType: 'decimal',
+                    description: 'Precio de la decoracion'
+                },
+           },
+           additionalProperties: false
+       }
+   }
+})
