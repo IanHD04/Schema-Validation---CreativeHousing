@@ -1,0 +1,36 @@
+db.createCollection('membresias', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_membresia','fecha_inicio','fecha_vencimiento','estado','monto','beneficios'],
+           properties: {
+                codigo_membresia: {
+                    bsonType: 'int',
+                    description: 'Codigo de la membresia'
+                },
+
+                fecha_inicio: {
+                    bsonType: 'date',
+                    description: 'Fecha de inicio de la membresia'
+                },
+                fecha_vencimiento: {
+                    bsonType: 'date',
+                    description: 'Fecha de vencimiento de la membresia'
+                },
+                  estado: {
+                    bsonType: 'string',
+                    description: 'Estado de la membresia'
+                    },
+                    monto: {
+                    bsonType: 'double',
+                    description: 'Monto de la membresia'
+                    },
+                beneficios: {
+                    bsonType: 'string',
+                    description: 'Beneficios de la membresia',
+
+                     }
+                }
+           },
+       }
+})
