@@ -2,7 +2,8 @@ db.createCollection('proyectos', {
    validator: {
        $jsonSchema: {
            bsonType: 'object',
-           required: ['codigo_proyecto','nombre','fecha_de_creacion','descripcion','estado','ultima_modificacion','categorias','espacios'],
+           required: ['codigo_proyecto','nombre','fecha_de_creacion','descripcion','estado',
+           'ultima_modificacion','categorias','espacios'],
            properties: {
                 codigo_proyecto: {
                     bsonType: 'int',
@@ -100,7 +101,6 @@ db.createCollection('proyectos', {
                }
 
            },
-           additionalProperties: false
        }
    }
 })
