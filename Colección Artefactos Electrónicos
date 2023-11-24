@@ -21,23 +21,22 @@ db.createCollection('artefactos_electronicos', {
                     description: 'Modelo del artefacto electronico'
                 },
                 precio: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Precio del artefacto electronico'
                 },
                 ancho: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Ancho del artefacto electronico'
                 },
                 largo: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Largo del artefacto electronico'
                 },
                 altura: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Altura del artefacto electronico'
                 },
            },
-           additionalProperties: false
        }
    }
 })
