@@ -4,14 +4,15 @@ db.createCollection('usuarios', {
    validator: {
        $jsonSchema: {
            bsonType: 'object',
-           required: ['codigo_usuario','dni','nombre','apellido_paterno','apellido_materno','correo_electronico','contrasenia','numero_telefonico','membresias'],
+           required: ['codigo_usuario','dni','nombre','apellido_paterno','apellido_materno',
+           'correo_electronico','contrasenia','numero_telefonico','membresias'],
            properties: {
                 codigo_usuario: {
                     bsonType: 'int',
                     description: 'Codigo del usuario'
                 },
                 dni: {
-                    bsonType: 'string',
+                    bsonType: 'int',
                     description: 'DNI del usuario, debe tener 8 digitos'
                 },
                 nombre: {
@@ -38,57 +39,71 @@ db.createCollection('usuarios', {
                     bsonType: 'string',
                     description: 'Numero telefonico del usuario, debe ser una cadena de 9 digitos'
                 },
-               membresias: {
-                   bsonType: 'array',
-                   description: 'Listado de las membresias que puede tener cada usuario, junto con las fechas de inicio y vencimineto,estado, monto y beneficios que tiene',
-                   items: {
-                       bsonType: 'object',
-                       required: ['fecha_inicio','fecha_vencimiento','estado','monto','beneficios '],
-                       properties: {
-                           fecha_inicio: {
-                               bsonType: 'date',
-                               description: 'Fecha de inicio de la membresia'
-                           },
-                           fecha_vencimiento: {
-                               bsonType: 'date',
-                               description: 'Fecha de vencimiento de la membresia'
-                           },
-                           estado: {
-                               bsonType: 'string',
-                               description: 'Estado de la membresia'
-                           },
-                           monto: {
-                               bsonType: 'decimal',
-                               description: 'Monto de la membresia'
-                           },
-                           beneficios: {
-                               bsonType: 'array',
-                               description: 'Arreglo de beneficios',
-                               items:{
-                                   bsonType: 'object',
-                                   required: ['beneficio'],
-                                   properties: {
-                                       beneficio: {
-                                           bsonType: 'string',
-                                           description: 'Beneficio de la membresia'
-                                       }
-                                   }
-                               }
-                           }
-                       }
-                   }
-               }
+                 membresias: {
+                    bsonType: 'array',
+                    description: 'Listado de las mebresias',
+                    items: {
+                    bsonType: 'object',
+                    required: ['codigo_membresia'],
+                    properties: {
+                        codigo_membresia: {
+                        bsonType: 'int',
+                        description: 'Codigo de la membresia'
+                        },
+                    }
+                    }
+                },
            },
-           additionalProperties: false
        }
    }
 })
+
+
+
+db.createCollection('membresias', {
+   validator: {
+       $jsonSchema: {
+           bsonType: 'object',
+           required: ['codigo_membresia','fecha_inicio','fecha_vencimiento','estado','monto','beneficios'],
+           properties: {
+                codigo_membresia: {
+                    bsonType: 'int',
+                    description: 'Codigo de la membresia'
+                },
+
+                fecha_inicio: {
+                    bsonType: 'date',
+                    description: 'Fecha de inicio de la membresia'
+                },
+                fecha_vencimiento: {
+                    bsonType: 'date',
+                    description: 'Fecha de vencimiento de la membresia'
+                },
+                  estado: {
+                    bsonType: 'string',
+                    description: 'Estado de la membresia'
+                    },
+                    monto: {
+                    bsonType: 'double',
+                    description: 'Monto de la membresia'
+                    },
+                beneficios: {
+                    bsonType: 'string',
+                    description: 'Beneficios de la membresia',
+
+                     }
+                }
+           },
+       }
+})
+
 
 db.createCollection('proyectos', {
    validator: {
        $jsonSchema: {
            bsonType: 'object',
-           required: ['codigo_proyecto','nombre','fecha_de_creacion','descripcion','estado','ultima_modificacion','categorias','espacios'],
+           required: ['codigo_proyecto','nombre','fecha_de_creacion','descripcion','estado',
+           'ultima_modificacion','categorias','espacios'],
            properties: {
                 codigo_proyecto: {
                     bsonType: 'int',
@@ -186,7 +201,6 @@ db.createCollection('proyectos', {
                }
 
            },
-           additionalProperties: false
        }
    }
 })
@@ -214,23 +228,22 @@ db.createCollection('artefactos_electronicos', {
                     description: 'Modelo del artefacto electronico'
                 },
                 precio: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Precio del artefacto electronico'
                 },
                 ancho: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Ancho del artefacto electronico'
                 },
                 largo: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Largo del artefacto electronico'
                 },
                 altura: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Altura del artefacto electronico'
                 },
            },
-           additionalProperties: false
        }
    }
 })
@@ -262,23 +275,22 @@ db.createCollection('muebles', {
                     description: 'Color del mueble'
                 },
                 precio: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Precio del mueble'
                 },
                 ancho: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Ancho del mueble'
                 },
                 largo: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Largo del mueble'
                 },
                 altura: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Altura del mueble'
                 },
            },
-           additionalProperties: false
        }
    }
 })
@@ -306,11 +318,10 @@ db.createCollection('decoraciones', {
                     description: 'Textura de la decoracion'
                 },
                 precio: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Precio de la decoracion'
                 },
            },
-           additionalProperties: false
        }
-   }
+    }
 })
