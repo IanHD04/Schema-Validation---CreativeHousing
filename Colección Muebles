@@ -25,23 +25,24 @@ db.createCollection('muebles', {
                     description: 'Color del mueble'
                 },
                 precio: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Precio del mueble'
                 },
                 ancho: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Ancho del mueble'
                 },
                 largo: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Largo del mueble'
                 },
                 altura: {
-                    bsonType: 'decimal',
+                    bsonType: 'double',
                     description: 'Altura del mueble'
                 },
            },
-           additionalProperties: false
        }
    }
+})
+
 })
